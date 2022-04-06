@@ -10,8 +10,7 @@ all: build
 
 #-----------------------------------------------
 
-install: build
-	mkdir -p ${DESTDIR}/bin
+install:
 	cp    -f ./bin/wordcoloriser ${DESTDIR}/bin/wordcoloriser
 
 clean:
@@ -21,6 +20,7 @@ uninstall:
 	rm    -f ${DESTDIR}/bin/wordcoloriser
 
 build:
+	mkdir -p ${DESTDIR}/bin
 	g++   ./source/main.cpp  -std=c++20 -O3  -o ./bin/wordcoloriser
 
 .PHONY: all build install clean uninstall
