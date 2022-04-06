@@ -53,7 +53,7 @@ int main( const int argc, char** argv )
   std::string all;
 
   std::string start = "\033[";
-  std::string end = "m$&";
+  std::string end = "m$&\033[0m";
 
   std::vector<std::string> colours =
     { "30", "31", "32", "33", "34", "35", "36", "37",
