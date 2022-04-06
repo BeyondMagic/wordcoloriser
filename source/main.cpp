@@ -19,6 +19,8 @@
 #include <regex>
 #include <vector>
 
+#define WHITE 255
+
 int main( const int argc, char** argv )
 {
 
@@ -26,7 +28,7 @@ int main( const int argc, char** argv )
   std::vector<std::string> text;
   std::string all;
   std::string start = "\033[38;2;";
-  std::string end = "m[$&] lol";
+  std::string end = "m$&";
   int blue = 0;
   int red = 0;
   int green = 0;
@@ -48,13 +50,13 @@ int main( const int argc, char** argv )
 
     if (!ln.empty()) {
 
-      std::random_device rd; // obtain a random number from hardware
-      std::mt19937 gen(rd()); // seed the generator
-      std::uniform_int_distribution<> distr(0, 255); // define the range
+      std::random_device rd;
+      std::mt19937 gen(rd());
+      std::uniform_int_distribution<> distr(30, 233);
 
-      blue =  distr(gen);
-      red =   distr(gen);
-      green = distr(gen);
+      blue =  ( distr(gen) + WHITE ) / 2;
+      red =   ( distr(gen) + WHITE ) / 2;
+      green = ( distr(gen) + WHITE ) / 2;
 
       all = std::regex_replace(all, std::regex(ln), start + std::to_string(red) + ';' + std::to_string(green) + ';' + std::to_string(blue) + end);
 
