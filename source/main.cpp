@@ -19,6 +19,30 @@
 #include <regex>
 #include <vector>
 
+template <typename T>
+void only_distinct_duplicates(::std::vector<T> &v)
+{
+    ::std::sort(v.begin(), v.end());
+    auto output = v.begin();
+    auto test = v.begin();
+    auto run_start = v.begin();
+    auto const end = v.end();
+    for (auto test = v.begin(); test != end; ++test) {
+       if (*test != *run_start) {
+           if ((test - run_start) > 1) {
+              ::std::swap(*output, *run_start);
+              ++output;
+           }
+           run_start = test;
+       }
+    }
+    if ((end - run_start) > 1) {
+        ::std::swap(*output, *run_start);
+        ++output;
+    }
+    v.erase(output, end);
+}
+
 #define WHITE 255
 
 int main( const int argc, char** argv )
@@ -27,11 +51,13 @@ int main( const int argc, char** argv )
   std::string line;
   std::vector<std::string> text;
   std::string all;
-  std::string start = "\033[38;2;";
+
+  std::string start = "\033[";
   std::string end = "m$&";
-  int blue = 0;
-  int red = 0;
-  int green = 0;
+
+  std::vector<std::string> colours =
+    { "30", "31", "32", "33", "34", "35", "36", "37",
+      "90", "91", "92", "93", "94", "95", "96", "97"};
 
   while ( getline(std::cin, line) ) {
 
@@ -40,26 +66,19 @@ int main( const int argc, char** argv )
 
   }
 
-  std::vector<std::string> copy = text;
+  sort( text.begin(), text.end() );
+  only_distinct_duplicates(text);
 
-  // B. awk 'NF' | uniq -u
-  sort( copy.begin(), copy.end() );
-  copy.erase( unique( copy.begin(), copy.end() ), copy.end() );
-
-  for (std::string ln : copy) {
+  int i = 0;
+  for (std::string ln : text) {
 
     if (!ln.empty()) {
 
-      std::random_device rd;
-      std::mt19937 gen(rd());
-      std::uniform_int_distribution<> distr(30, 233);
+      all = std::regex_replace(all, std::regex(ln), start + colours[i] + end);
 
-      blue =  ( distr(gen) + WHITE ) / 2;
-      red =   ( distr(gen) + WHITE ) / 2;
-      green = ( distr(gen) + WHITE ) / 2;
+      i++;
 
-      all = std::regex_replace(all, std::regex(ln), start + std::to_string(red) + ';' + std::to_string(green) + ';' + std::to_string(blue) + end);
-
+      if (i == colours.size()) i = 0;
 
     }
 
