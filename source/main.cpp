@@ -16,7 +16,7 @@
 
 #include <iostream>
 #include <random>
-#include <regex>
+//#include <regex>
 #include <vector>
 
 template <typename T>
@@ -43,7 +43,17 @@ void only_distinct_duplicates(::std::vector<T> &v)
     v.erase(output, end);
 }
 
-#define WHITE 255
+
+// ReplaceAll(string("Number Of Beans"), std::string(" "), std::string("_"))
+
+void replace_all(std::string &str, const std::string &from, const std::string &to) {
+
+    size_t start_pos = 0;
+    while((start_pos = str.find(from, start_pos)) != std::string::npos) {
+        str.replace(start_pos, from.length(), to);
+        start_pos += to.length(); // Handles case where 'to' is a substring of 'from'
+    }
+}
 
 int main( const int argc, char** argv )
 {
@@ -53,11 +63,40 @@ int main( const int argc, char** argv )
   std::string all;
 
   std::string start = "\033[";
-  std::string end = "m$&\033[0m";
+  std::string end = "\033[0m";
+
+  //std::vector<std::string> colours =
+  //  { "30", "90", "31", "91", "32", "92", "33", "93",
+  //    "34", "94", "35", "95", "36", "96", "37", "97"};
 
   std::vector<std::string> colours =
-    { "30", "90", "31", "91", "32", "92", "33", "93",
-      "34", "94", "35", "95", "36", "96", "37", "97"};
+    { "1", "2", "3", "4"};
+
+  //std::vector<std::vector<std::string>> rhymes = 
+  //  { // A vector containing a vector of syllabes that sound the same.
+  //    { "way", "ways", "ame" },
+  //    { "ame" },
+  //    { "irt", "urt" },
+  //    { "lea", "be" },
+  //    { "ria" },
+  //    { "g", "g", "g", "g", "g" , },
+  //    { "j", "j", "j", "j", "j" , },
+  //    { "k", "k", "k", "k", "k" , },
+  //    { "l", "l", "l", "l", "l" , },
+  //    { "m", "m", "m", "m", "m" , },
+  //    { "n", "n", "n", "n", "n" , },
+  //    { "p", "p", "p", "p", "p" , },
+  //    { "q", "q", "q", "q", "q" , },
+  //    { "r", "r", "r", "r", "r" , },
+  //    { "s", "s", "s", "s", "s" , },
+  //    { "t", "t", "t", "t", "t" , },
+  //    { "v", "v", "v", "v", "v" , },
+  //    { "w", "w", "w", "w", "w" , },
+  //    { "x", "x", "x", "x", "x" , },
+  //    { "z", "z", "z", "z", "z" , }
+  //  };
+
+  // break the lyrics into a vector of words, then match the last characters with the above rhymes ^
 
   while ( getline(std::cin, line) ) {
 
@@ -74,7 +113,7 @@ int main( const int argc, char** argv )
 
     if (!ln.empty()) {
 
-      all = std::regex_replace(all, std::regex(ln), start + colours[i] + end);
+      replace_all(all, ln, start + colours[i] + 'm' + ln + end);
 
       i++;
 
