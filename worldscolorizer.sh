@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 #
 # It will get a text and try to turn it into a coloured one with the repeated lines being highlighted.
-
+#
 #
 # João F. © BeyondMagic 2022 <koetemagie@gmail.com>
 

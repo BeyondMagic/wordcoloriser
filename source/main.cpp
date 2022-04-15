@@ -73,12 +73,13 @@ int main( const int argc, char** argv )
   std::string start = "\033[";
   std::string end = "\033[0m";
 
-  //std::vector<std::string> colours =
-  //  { "30", "90", "31", "91", "32", "92", "33", "93",
-  //    "34", "94", "35", "95", "36", "96", "37", "97"};
-
   std::vector<std::string> colours =
-    { "1", "2", "3", "4"};
+    { "1", "2", "3", "4", // Special sytles.
+      "30", "90", "31", "91", "32", "92", "33", "93", // First-bar colours.
+      "34", "94", "35", "95", "36", "96", "37", "97"}; // Second-bar colours.
+
+  //std::vector<std::string> colours =
+  //  { "1", "2", "3", "4"};
 
   while ( getline(std::cin, line) ) {
 
@@ -91,6 +92,7 @@ int main( const int argc, char** argv )
   only_distinct_duplicates(text);
 
   int i = 0;
+  int colours_size = colours.size();
   for (std::string ln : text) {
 
     if (!ln.empty()) {
@@ -99,7 +101,7 @@ int main( const int argc, char** argv )
 
       i++;
 
-      if (i == colours.size()) i = 0;
+      if (i == colours_size) i = 0;
 
     }
 
