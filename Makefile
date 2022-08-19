@@ -21,6 +21,6 @@ uninstall:
 
 build:
 	mkdir -p ${DESTDIR}/bin
-	g++   ./source/main.cpp  -std=c++20 -O3  -o ./bin/wordcoloriser
+	g++   ./source/main.cpp  -std=c++20 -O3 -Wall -o ./bin/wordcoloriser
 
 .PHONY: all build install clean uninstall
