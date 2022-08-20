@@ -25,9 +25,6 @@
 #define CODE_START "\033["
 #define CODE_END "\033[0m"
 
-// #. Initial position of the colour in the set below.
-static unsigned int colour = 0;
-
 // #. Create a vector of strings that contain codes that can be parsed by the terminal
 //    as colours.
 std::vector<std::string> colours =
@@ -60,11 +57,13 @@ template <typename T>
 void only_distinct_duplicates(::std::vector<T> &v)
 {
     std::sort(v.begin(), v.end());
+
     auto output    = v.begin();
     auto run_start = v.begin();
     auto const end = v.end();
-    for (auto test = v.begin(); test != end; ++test) {
-       if (*test != *run_start) {
+
+    for (auto test = v.begin(); test not_eq end; ++test) {
+       if (*test not_eq *run_start) {
            if ((test - run_start) > 1) {
               ::std::swap(*output, *run_start);
               ++output;
@@ -72,10 +71,12 @@ void only_distinct_duplicates(::std::vector<T> &v)
            run_start = test;
        }
     }
+
     if ((end - run_start) > 1) {
         ::std::swap(*output, *run_start);
         ++output;
     }
+
     v.erase(output, end);
 }
 
@@ -89,11 +90,14 @@ void only_distinct_duplicates(::std::vector<T> &v)
 void highlight_repeated(std::vector<std::string> &source, std::vector<std::string> &repeated)
 {
 
+  // #. Initial position of the colour in the set below.
+  static unsigned int colour = 0;
+
   // 1. Loop in every repeated line and replace in the original poem with a special highlight.
   for (auto &line : repeated) {
 
     // I. Musn't be empty.
-    if (!line.empty()) {
+    if (not line.empty()) {
 
       // I. If the repeated line is the same as the verse.
       for (auto &verse : source) if (verse == line) {
@@ -101,10 +105,10 @@ void highlight_repeated(std::vector<std::string> &source, std::vector<std::strin
         // A. Replace with a new coloured verse.
         verse = CODE_START + colours[colour] + 'm' + line + CODE_END;
 
-        // B. Pick up a new colour.
-        if (++colour == colours.size()) colour = 0;
-
       }
+
+      // B. Pick up a new colour.
+      if (++colour == colours.size()) colour = 0;
 
     }
 

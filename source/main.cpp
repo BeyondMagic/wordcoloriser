@@ -54,16 +54,13 @@ int main( const int argc, char** )
 
   }
 
-  // 4. Sort the vector to find vectors rapidly.
-  std::sort( special.begin(), special.end() );
-
-  // 5. Get only the repeated strings of the vector.
+  // 4. Get only the repeated strings of the vector.
   only_distinct_duplicates(special);
 
-  // 6. Highligh all repeated verses
+  // 5. Highligh all repeated verses
   highlight_repeated(poem, special);
 
-  // 7. Print the poem to stdin.
+  // 6. Print the poem to stdin.
   for (auto line : poem ) std::cout << line << '\n';
 
 };
