@@ -55,8 +55,10 @@ std::vector<std::string> colours =
  * @return void
  **/
 template <typename T>
-void only_distinct_duplicates(::std::vector<T> &v)
+auto only_distinct_duplicates(::std::vector<T> &v) -> void
 {
+
+    // 1. The vector must be ordered alfabetically.
     std::sort(v.begin(), v.end());
 
     auto output    = v.begin();
@@ -64,13 +66,17 @@ void only_distinct_duplicates(::std::vector<T> &v)
     auto const end = v.end();
 
     for (auto test = v.begin(); test not_eq end; ++test) {
-       if (*test not_eq *run_start) {
+
+       if (*test not_eq *run_start)
+       {
+
            if ((test - run_start) > 1) {
               ::std::swap(*output, *run_start);
               ++output;
            }
            run_start = test;
        }
+
     }
 
     if ((end - run_start) > 1) {
@@ -88,7 +94,7 @@ void only_distinct_duplicates(::std::vector<T> &v)
  * @param {std::vector<std::string> &repeated}
  * @return void
  **/
-void highlight_repeated(std::vector<std::string> &source, std::vector<std::string> &repeated)
+auto highlight_repeated (std::vector<std::string> &source, std::vector<std::string> &repeated) -> void
 {
 
   // #. Initial position of the colour in the set below.

@@ -16,7 +16,7 @@
 
 #include "main.hpp"
 
-int main( const int argc, char** )
+int main( const int argc, const char** )
 {
 
   // 1. Do not run when:
@@ -39,7 +39,7 @@ int main( const int argc, char** )
   std::vector<std::string> special;
 
   // 3. Get all string from input.
-  while ( getline(std::cin, line) )
+  while ( std::getline(std::cin, line) )
   {
 
     // I For marks, such as "[ Chorus ]", push twice.
@@ -60,7 +60,11 @@ int main( const int argc, char** )
   // 5. Highligh all repeated verses
   highlight_repeated(poem, special);
 
-  // 6. Print the poem to stdin.
+  // 6. Clear off used vectors.
+  special.clear();
+  colours.clear();
+
+  // 7. Print the poem to stdin.
   for (auto line : poem ) std::cout << line << '\n';
 
 };
